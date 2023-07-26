@@ -4,7 +4,7 @@ import { ProductPage } from '../pages/products.page';
 import { test, expect } from '@playwright/test';
 import { CheckOutPage } from '../pages/checkOut.page';
 
-test.describe('E2E Tests', () => {
+test.describe('New user full journey', () => {
   let productPage: ProductPage;
   let cartPage: CartPage;
   let checkoutPage: CheckOutPage;
