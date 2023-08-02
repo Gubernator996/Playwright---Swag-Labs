@@ -24,12 +24,11 @@ test.describe('New user full journey', () => {
     // Act
     await productPage.addProductToCart();
     await cartPage.checkOrderOnCart();
-    await cartPage.checkout.click();
     await checkoutPage.fillCorrectInformation();
-    await checkoutPage.continueCheckOut.click();
     await checkoutPage.overViewProduct();
-    await checkoutPage.finishCheckOut.click();
-    await expect(checkoutPage.checkoutMessage).toBeVisible();
+    // Assert
+    await checkoutPage.verifySuccessfulCheckout();
+
   });
 
   test('Full journey process without providing contact informations', async () => {
@@ -38,6 +37,8 @@ test.describe('New user full journey', () => {
     await cartPage.checkOrderOnCart();
     await cartPage.checkout.click();
     await checkoutPage.continueCheckOut.click();
-    await expect(checkoutPage.errorCheckOut).toBeVisible();
+    // Assert
+    await checkoutPage.verifyUnSuccessfulCheckout();
   });
 });
+

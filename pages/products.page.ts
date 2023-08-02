@@ -7,29 +7,12 @@ export class ProductPage {
 
   // Locators
 
-  addToCart = this.page.locator(
-    '[data-test="add-to-cart-sauce-labs-backpack"]'
-  );
-  removeFromCart = this.page.locator(
-    '[data-test="remove-sauce-labs-backpack"]'
-  );
+  addToCart = this.page.locator('[data-test="add-to-cart-sauce-labs-backpack"]');
+  removeFromCart = this.page.locator('[data-test="remove-sauce-labs-backpack"]');
+  productTitle = this.page.locator('[class="inventory_item_name"]')
   prize = this.page.getByText(productData.prize);
   shoppingCart = this.page.locator('[id="shopping_cart_container"]');
-  shoppingCartAfterAddind1Item = this.page
-    .locator('a')
-    .filter({ hasText: '1' });
-//   filterZA = this.page
-//     .locator('[data-test="product_sort_container"]')
-//     .selectOption('za');
-//   filterAZ = this.page
-//     .locator('[data-test="product_sort_container"]')
-//     .selectOption('az');
-//   filterLOHI = this.page
-//     .locator('[data-test="product_sort_container"]')
-//     .selectOption('lohi');
-//   filterHILO = this.page
-//     .locator('[data-test="product_sort_container"]')
-//     .selectOption('hilo');
+  sortDropdown = this.page.locator('[data-test="product_sort_container"]');
   openMenu = this.page.getByRole('button', { name: 'Open Menu' });
   allItems = this.page.getByRole('link', { name: 'All Items' });
   logout = this.page.getByRole('link', { name: 'Logout' });
@@ -52,6 +35,16 @@ export class ProductPage {
     await this.shoppingCart.waitFor();
     const text = await this.shoppingCart.innerText();
     return parseInt(text, 10);
+  }
+
+  sortByCheapest = async() => {
+    await this.sortDropdown.waitFor();
+    await this.productTitle.first().waitFor();
+    const productTitleBeforeSorting = await this.productTitle.allInnerTexts()
+    await this.sortDropdown.selectOption('lohi')
+    const productTitleAfterSorting = await this.productTitle.allInnerTexts()
+    expect(productTitleAfterSorting).not.toEqual(productTitleBeforeSorting);
+    await this.page.pause();
   }
 
   // Assertions

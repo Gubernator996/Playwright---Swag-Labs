@@ -3,7 +3,9 @@ import { cartData } from '../test-data/cart.data';
 import { productData } from '../test-data/products.data';
 
 export class CartPage {
-  constructor(private page: Page) {}
+  constructor(private page: Page) {
+    
+  }
 
   // Locators
 
@@ -12,7 +14,6 @@ export class CartPage {
   orderDescription = this.page.getByRole('link', {
     name: productData.productName,
   });
-  //   orderDescription2 = this.page.locator('#inventory_item_name');
   checkout = this.page.locator('[data-test="checkout"]');
   removeProduct = this.page.locator('[data-test="remove-sauce-labs-backpack"]');
   continueShopping = this.page.locator('[data-test="continue-shopping"]');
